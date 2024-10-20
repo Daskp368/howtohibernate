@@ -1,46 +1,46 @@
 package com.example.myapp.controller;
 
-import com.example.myapp.model.Owner;
-import com.example.myapp.service.OwnerService;
+import com.example.myapp.model.Pet;
+import com.example.myapp.service.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/owner")
-public class OwnerController {
+@RequestMapping("/pets")
+public class PetController {
 
-    private final OwnerService ownerService;
+    private final PetService petService;
 
     @Autowired
-    public OwnerController(OwnerService ownerService) {
-        this.ownerService = ownerService;
+    public PetController(PetService petService) {
+        this.petService = petService;
     }
 
     @GetMapping
-    public List<Owner> getAllOwners() {
-        return ownerService.getAllOwners();
+    public List<Pet> getAllPets() {
+        return petService.getAllPets();
     }
 
-    @GetMapping("/id")
-    public Owner getOwnerById(@PathVariable Long id) {
-        return ownerService.getOwnerById(id);
+    @GetMapping
+    public Pet getPetById(@PathVariable Long id) {
+        return petService.getPetById(id);
     }
 
     @PostMapping
-    public Owner createOwner(@RequestBody Owner owner) {
-        return ownerService.createOwner(owner);
+    public Pet createPet(@RequestBody Pet pet) {
+        return petService.createPet(pet);
     }
 
-    @PutMapping("/{id}")
-    public Owner updateOwner(@PathVariable Long id, @RequestBody Owner owner) {
-        return ownerService.updateOwner(owner);
+    @PutMapping
+    public Pet updatePet(@PathVariable Long id, @RequestBody Pet pet) {
+        pet.setId(id);
+        return petService.updatePet(pet);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteOwner(@PathVariable Long id) {
-        ownerService.deleteOwner(id);
+    @DeleteMapping("/id")
+    public void deletePet(@PathVariable Long id) {
+        petService.deletePet(id);
     }
-
 }
